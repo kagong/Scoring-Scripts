@@ -1,0 +1,11 @@
+#!/bin/bash
+#./make_dir_hw [HW#]
+
+cd files/
+dirs=("students" "results" "testcases" "solutions")
+for(( i=0;i<${#dirs[@]};i++));do
+    cd "${dirs[$i]}"
+    mkdir HW$1
+    cd ..
+
+done
