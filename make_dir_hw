@@ -1,11 +1,20 @@
 #!/bin/bash
 #./make_dir_hw [HW#]
 
+if [ ! -d "files" ]; then
+        mkdir files; 
+fi
 cd files/
 dirs=("students" "results" "testcases" "solutions")
 for(( i=0;i<${#dirs[@]};i++));do
-    cd "${dirs[$i]}"
-    mkdir HW$1
-    cd ..
+    if [ ! -d "${dirs[$i]}" ]; then
+        mkdir "${dirs[$i]}";
+    fi
+    cd "${dirs[$i]}";
+    
+    if [ ! -d "HW$1" ]; then
+        mkdir "HW$1";
+    fi
+    cd ..;
 
 done

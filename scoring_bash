@@ -1,6 +1,6 @@
 #!/bin/bash
-#./mark_test [HW?] [problem#]
-#./mark_test HW1 1
+#./scoring_bash [HW#] [problem#]
+#./scoring_bash HW1 1
 
 
 students_folder="students/$1"
@@ -9,25 +9,29 @@ testcases_folder="testcases/$1"
 solutions_folder="solutions/$1"
 
 > diffs
+
 cd files/;
 
 for student_folder in $(ls $students_folder);do
-    #cd $students_folder/$student_folder;
-    #target_c=$(ls *$2.c);
 
     target_c=$student_folder"_"$2".c";
     exec=${target_c%.c};
     gcc -o $exec $students_folder/$student_folder/$target_c;
+
     if [ -f "$results_folder/$student_folder" ]; then
         mkdir $results_folder/$student_folder;
     fi
+
     if [ -f "$results_folder/$student_folder/$2" ]; then
         mkdir $results_folder/$student_folder/$2;
     fi
+
     for testcase in $(ls $testcases_folder/$2);do
         ./$exec < $testcases_folder/$2/$testcase > $results_folder/$student_folder/$2/$testcase;
         diff -b -u $solutions_folder/$2/$testcase $results_folder/$student_folder/$2/$testcase >> ../diffs;
     done
+
     rm $exec;
 done
+
 cd ..
