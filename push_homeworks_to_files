@@ -1,0 +1,26 @@
+#!/bin/bash
+#push homworks to files in rules
+#./push_homeworks_to_files homeworks/
+
+for file in $(find $1 -name "*.c");do
+    target_c=$(echo "$file" | rev | cut -f 1 -d'/' |rev);
+    target_name=${target_c%.c};
+
+    HW_number=$(echo "$target_name" | cut -f 1 -d'_');
+    HW_student_id=$(echo "$target_name" | cut -f 2 -d'_');
+    HW_problem_number=$(echo "$target_name" | cut -f 3 -d'_');
+
+    
+    if [ ! -d "files/students/$HW_number" ]; then
+        mkdir files/students/$HW_number;
+    fi
+    if [ ! -d "files/students/$HW_number/$HW_student_id" ]; then
+        mkdir files/students/$HW_number/$HW_student_id;
+    fi
+    if [ ! -d "files/students/$HW_number/$HW_student_id/$HW_problem_number" ]; then
+        mkdir files/students/$HW_number/$HW_student_id/$HW_problem_number;
+    fi
+    target_folder="files/students/$HW_number/$HW_student_id/$HW_problem_number";
+    mv $file $target_folder/$target_c;
+    
+done
