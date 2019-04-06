@@ -1,4 +1,5 @@
 #!/bin/bash
+#/files/HW1/20151575/1/HW1_20151575_1.c 
 #./scoring_bash [HW#] [problem#]
 #./scoring_bash HW1 1
 
@@ -8,27 +9,33 @@ results_folder="results/$1"
 testcases_folder="testcases/$1"
 solutions_folder="solutions/$1"
 
-> diffs
+#> diffs
 
 cd files/;
+for student_id in $(ls $students_folder);do
 
-for student_folder in $(ls $students_folder);do
-
-    target_c=$student_folder"_"$2".c";
+    echo "$student_id";
+    target_c=$1"_"$student_id"_"$2".c";
     exec=${target_c%.c};
-    gcc -o $exec $students_folder/$student_folder/$target_c;
+    gcc -o $exec $students_folder/$student_id/$2/$target_c ;
 
-    if [ -f "$results_folder/$student_folder" ]; then
-        mkdir $results_folder/$student_folder;
+    if [ ! -d "$results_folder/$student_id" ]; then
+        mkdir $results_folder/$student_id;
     fi
 
-    if [ -f "$results_folder/$student_folder/$2" ]; then
-        mkdir $results_folder/$student_folder/$2;
+    if [ ! -d "$results_folder/$student_id/$2" ]; then
+        mkdir $results_folder/$student_id/$2;
     fi
 
+   # echo "" > $results_folder/$student_id/$2/results;
     for testcase in $(ls $testcases_folder/$2);do
-        ./$exec < $testcases_folder/$2/$testcase > $results_folder/$student_folder/$2/$testcase;
-        diff -b -u $solutions_folder/$2/$testcase $results_folder/$student_folder/$2/$testcase >> ../diffs;
+        ./$exec < $testcases_folder/$2/$testcase > $results_folder/$student_id/$2/$testcase; 
+        #./$exec < $testcases_folder/$2/$testcase >> $results_folder/$student_folder/$2/results;
+        #echo "
+#
+ #       " >> $results_folder/$student_folder/$2/results;
+        
+        #diff -b -u $solutions_folder/$2/$testcase $results_folder/$student_folder/$2/$testcase >> ../diffs;
     done
 
     rm $exec;
