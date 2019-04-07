@@ -20,7 +20,7 @@ for testcase in range(start,end+1):
     solution.close()
 
 
-for student_id in students.split(' '): 
+for student_id in students.split(' '):
     print(student_id + " start")
     for testcase in range(start,end+1):
         flag = False
@@ -34,6 +34,8 @@ for student_id in students.split(' '):
             result = open("../files/results/HW1/"+student_id+"/1/"+str(testcase),"r")
             for line in result.readlines():
                 line = line.split('\n')[0]
+                if line == '':
+                    continue
                 if line in list_sol[testcase-1].keys():
                     list_sol[testcase-1][line] += 1
                 else:
