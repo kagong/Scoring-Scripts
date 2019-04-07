@@ -1,5 +1,5 @@
-##Scoring-Scipts
-This is bash script for **Scoring HomeWork*
+## Scoring-Scipts
+This is bash script for **Scoring HomeWork**
 
 we assume that DIR HW[homework number] has dirs named student ID that have files named studentsID_[problem number].c
 
@@ -22,7 +22,7 @@ ex) files - students - HW1 - 20151575 - 1 - HW1_20151575_1.c
 
 5. Check the results
 
-#License
+# License
 
 MIT License
 
